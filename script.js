@@ -1,7 +1,7 @@
-const getMealButton = document.getElementById('get-meal'); // selecionando botão
-const mealContainer = document.getElementById('meal'); // selecionando div onde vai ficar as refeições
+const getMealButton = document.getElementById('get-meal'); // selecting button
+const mealContainer = document.getElementById('meal'); // selecting div where meals will be
 
-// adicionando um ouvinte de evento para o click e por dentro faço uma solicitação à API
+// adding an event listener for the click and inside I make a request to the API
 getMealButton.addEventListener('click', () => {
     fetch('https://www.themealdb.com/api/json/v1/1/random.php')
     .then(res => res.json())
@@ -18,9 +18,9 @@ const createMeal = meal => {
 
     // get all ingredients from the object. Up to 20
     for(let i = 1; i <= 20; i++) {
-        if(meal[`strIngredients${i}`]) {
+        if(meal[`strIngredient${i}`]) {
             ingredients.push(
-                `${meal[`strIngredients${i}`]} - ${meal[`strMeasure${i}`]}`
+                `${meal[`strIngredient${i}`]} - ${meal[`strMeasure${i}`]}`
             );
         } else {
             // stop if there are no more ingredients
@@ -29,34 +29,40 @@ const createMeal = meal => {
     }
 
 const newInnerHTML = `
-    <div>
-        <div>
-            <img src="${meal.strMealThumb}" alt="Imagem da Refeição">
-            ${meal.strCategory ? `<p><strong>Category:</strong> ${meal.strArea}</p>` : '-'}
+    <div class="meal-container">
+        <div class="meal-thumb column">
+            <label class="column">
+                <img src="${meal.strMealThumb}" alt="Imagem da Refeição">
+                ${meal.strMeal} <!-- meal title -->
+            </label>
 
-            ${meal.strArea ? `<p><strong>Area:</strong> ${meal.strArea}</p>` : '-'}
+            ${meal.strYoutube ? `
+            <div>
+                <h5>Recipe tutorial</h5>
+                <iframe src="https://www.youtube.com/embed/${meal.strYoutube.slice(-11)}"></iframe>
+            </div>` : '-'
+            }
+        </div>
+        
+        <div class="meal-body column">
+            ${meal.strCategory ? `<p><strong>Category:</strong> <label>${meal.strArea}</label></p>` : '-'}
 
-            ${meal.strTags ? `<p><strong>Tags:</strong> ${meal.strTags.split(',').join(', ')}</p>` : ''}
+            ${meal.strArea ? `<p><strong>Area:</strong> <label>${meal.strArea}</label></p>` : '-'}
+
+            ${meal.strTags ? `<p><strong>Tags:</strong> <label>${meal.strTags.split(',').join(', ')}</label></p>` : ' '}
 
             <h3>Ingredientes:</h3>
 
             <ul>${ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}</ul>
+            
+            <div class="instructions">${meal.strInstructions}</div> <!-- instructions -->
         </div>
 
         <div>
-            <h4>${meal.strMeal}</h4>
-            <p>${meal.strInstructions}</p>
+            
         </div>
     </div>
-    ${meal.strYoutube ? `
     
-    <div>
-        <h5>Video da receita</h5>
-        <div>
-            <iframe with="500" height:"340" src="https://www.youtube.com/embed/${meal.strYoutube.slice(-11)}"></iframe>
-        </div>
-    </div>` : '-'
-    }
 `;
 
 mealContainer.innerHTML = newInnerHTML;
