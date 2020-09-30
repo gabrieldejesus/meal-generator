@@ -1,6 +1,6 @@
 # Random Meal Generator
 
-Description...
+A random revenue generator obtaining data from a public API
 
 ![](images/web-preview.gif)
 

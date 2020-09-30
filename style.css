@@ -147,3 +147,86 @@ iframe {
     width: 340px;
     height: 200px;
 }
+
+/* responsive */
+@media (max-width:1080px) {
+    .container {
+        width: 800px;
+    }
+    
+    strong, h3, h5 {
+        font-size: 18px;
+    }
+
+    p, ul, .meal-body label, .instructions {
+        font-size: 15px;
+    }
+
+    iframe {
+        border: 0px;
+        width: 340px;
+        height: 200px;
+    }
+}
+
+@media (max-width:800px) {
+    .container {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+@media (max-width:770px) {
+    .meal-container {
+        flex-direction: column;
+    }
+    
+    .meal-thumb img {
+        width: 400px;
+        height: 320px;
+    }
+
+    .meal-body {
+        align-items: center;
+        text-align: center;
+    }
+
+    ul {
+        padding: 0px;
+        text-align: center;
+        list-style: none;
+    }
+}
+
+@media (max-width:430px) {
+    h1 {
+        font-size: 25px;
+    }
+
+    button {
+        width: 200px;
+        height: 60px;
+        font-size: 25px;
+    }
+    
+    .meal-thumb img {
+        width: 310px;
+        height: 270px;
+    }
+    
+    iframe {
+        width: 310px;
+        height: auto;
+    }
+}
+
+@media (max-width:350px) {
+    .meal-thumb img {
+        width: 280px;
+        height: 264px;
+    }
+
+    iframe {
+        width: 280px;
+    }
+}
